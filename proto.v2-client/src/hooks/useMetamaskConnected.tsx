@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { ethers } from "ethers";
 import Web3Modal from "web3modal";
 import { SET_USER_CONNECT, SET_USER_DISCONNECT } from "@/redux/slice/authSlice";
@@ -13,7 +13,7 @@ export const useMetamaskConnected = () => {
 
   const web3Modal = new Web3Modal({});
 
-  const redirChromeExtemsion = () => {
+  const redirChromeExtension = () => {
     return window.open(
       "https://chromewebstore.google.com/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn?hl=en"
     );
@@ -41,7 +41,7 @@ export const useMetamaskConnected = () => {
 
   const connectWallet = async () => {
     if (!provider) {
-      redirChromeExtemsion();
+      redirChromeExtension();
     } else {
       const instance = await web3Modal.connect();
       const providers = new ethers.BrowserProvider(instance);

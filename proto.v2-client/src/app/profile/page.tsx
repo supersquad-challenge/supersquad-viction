@@ -27,6 +27,7 @@ import BaseButton from "@/components/base/Button/BaseButton";
 import Link from "next/link";
 import { useVictionConnected } from "@/hooks/useVictionConnected";
 import { useMetamaskConnected } from "@/hooks/useMetamaskConnected";
+import { useCoin98Connected } from "@/hooks/useCoin98Connected";
 
 const Profile = () => {
   // variables //
@@ -43,6 +44,9 @@ const Profile = () => {
 
   const { metamaskConnected, metamaskConnect, metamaskDisconnect } =
     useMetamaskConnected();
+
+  const { coin98Connected, coin98Connect, coin98Disconnect } =
+    useCoin98Connected();
 
   // API //
   const {
@@ -187,18 +191,21 @@ const Profile = () => {
         </Wallet>
         <Wallet walletName="Coin98" walletImgSrc="/asset/coin98_logo.svg">
           <DefaultWalletButtonWrapper>
-            <Link href={`https://app.kaikas.io/u/v2.supersquad.store`}>
-              <BaseButton
-                color={colors.white}
-                fontSize={12.4}
-                fontWeight={500}
-                borderRadius={21}
-                backgroundColor={colors.primary}
-                padding="9px 16px"
-                title={"Connect"}
-                onClickHandler={() => {}}
-              />
-            </Link>
+            <BaseButton
+              color={colors.white}
+              fontSize={12.4}
+              fontWeight={500}
+              borderRadius={21}
+              backgroundColor={coin98Connected ? colors.gray : colors.primary}
+              padding="9px 16px"
+              title={coin98Connected ? "Connected" : "Connect"}
+              onClickHandler={() => {
+                const method = coin98Connected
+                  ? coin98Disconnect
+                  : coin98Connect;
+                method();
+              }}
+            />
           </DefaultWalletButtonWrapper>
         </Wallet>
         <a href="mailto:official@supersquad.xyz">
