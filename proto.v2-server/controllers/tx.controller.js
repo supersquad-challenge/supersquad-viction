@@ -9,7 +9,7 @@ const dynamicPoolContractAbi =
 
 require('dotenv').config();
 
-const provider = new ethers.providers.JsonRpcProvider(process.env.INFURA_URL);
+const provider = new ethers.providers.JsonRpcProvider(process.env.VICTION_URL);
 
 const ServerPrivateKey = process.env.SERVER_PRIVATE_KEY;
 const ServerWallet = new ethers.Wallet(ServerPrivateKey, provider);
@@ -30,6 +30,21 @@ const transferToUser = async (contractAddress, amount, userAddress) => {
 };
 
 module.exports = {
+  test: async (req, res) => {
+    try {
+      console.log(ServerWallet);
+
+      res.status(200).json({
+        message: 'test',
+      });
+    } catch (error) {
+      console.log(error);
+      res.status(500).json({
+        error: 'Internal Server Error',
+      });
+    }
+  },
+
   DepositPool: async (req, res) => {
     try {
       const { userChallengeId, depositMethod, deposit } = req.body;
