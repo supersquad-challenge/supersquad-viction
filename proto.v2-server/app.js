@@ -52,7 +52,7 @@ app.use(cookieParser());
 
 app.use(
   cors({
-    origin: ['http://localhost:3000', 'https://klaytn.supersquad.store/'],
+    origin: ['http://localhost:3000', 'https://viction.supersquad.store/'],
     credentials: true,
   })
 );
