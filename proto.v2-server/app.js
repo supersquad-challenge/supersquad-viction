@@ -54,8 +54,8 @@ app.use(
   cors({
     origin: [
       'http://localhost:3000',
-      'https://supersquad.store/',
-      'https://viction.supersquad.store/',
+      'https://supersquad.store',
+      'https://viction.supersquad.store',
     ],
     credentials: true,
   })
