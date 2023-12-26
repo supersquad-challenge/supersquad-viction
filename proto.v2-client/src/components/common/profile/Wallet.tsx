@@ -4,7 +4,6 @@ import colors from "@/styles/color";
 import BaseButton from "@/components/base/Button/BaseButton";
 import { useSelector, useDispatch } from "react-redux";
 import {
-  SET_USER_CONNECT,
   SET_USER_DISCONNECT,
   getIsLoggedInState,
 } from "@/redux/slice/authSlice";

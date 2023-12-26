@@ -39,18 +39,17 @@ const authSlice = createSlice({
       state.email = null;
       state.nickname = null;
       state.userID = null;
-      state.address = null;
-      state.isConnected = false;
+      state.address = state.address;
+      state.isConnected = state.isConnected;
       state.profile = null;
     },
     SET_USER_CONNECT: (state, action) => {
       const { address } = action.payload;
 
-      if (!state.isLoggedIn) return;
       state = { ...state };
-
       state.isConnected = true;
       state.address = address;
+      console.log(state);
     },
     SET_USER_DISCONNECT: (state) => {
       state = { ...state };
