@@ -1,10 +1,5 @@
 import { useSelector, useDispatch } from "react-redux";
-import {
-  getIsConnectedState,
-  getAddressState,
-  SET_USER_DISCONNECT,
-  SET_USER_CONNECT,
-} from "@/redux/slice/authSlice";
+import { SET_USER_DISCONNECT, SET_USER_CONNECT } from "@/redux/slice/authSlice";
 import { useEffect, useState } from "react";
 
 export const useVictionConnected = () => {
