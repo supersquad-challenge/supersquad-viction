@@ -7,6 +7,8 @@ const ChallengeSchema = new Schema({
     type: String,
     unique: true,
   },
+  challengeStartAt: String,
+  challengeEndAt: String,
   thumbnailUrl: String,
   frequency: String,
   totalVeriNum: Number,
