@@ -7,16 +7,11 @@ import thousandFormat from "@/utils/thousandFormat";
 import SingleCollection from "@/components/common/profile/SingleCollection";
 import Wallet, {
   DefaultWalletButtonWrapper,
-  WalletConnectButtonWrapper,
 } from "@/components/common/profile/Wallet";
 import { usePathname, useRouter } from "next/navigation";
 import { useSelector, useDispatch } from "react-redux";
 import {
-  SET_USER_CONNECT,
-  SET_USER_DISCONNECT,
-  SET_USER_LOGOUT,
   getEmailState,
-  getIsConnectedState,
   getIsLoggedInState,
   getNicknameState,
   getProfileState,
@@ -25,13 +20,13 @@ import {
 import { useEffect, useState } from "react";
 import { INITIALIZE_FOOTER_BLUEBUTTON } from "@/redux/slice/layoutSlice";
 import { CLOSE_MODAL } from "@/redux/slice/modalSlice";
-import { login } from "@/lib/api/axios/auth/login";
 import { useQuery } from "react-query";
 import { getUserInfo } from "@/lib/api/querys/user/getUserInfo";
 import { BadgeT, UserInfoT } from "@/types/api/User";
-import { useAccount, useBalance, useNetwork, useSwitchNetwork } from "wagmi";
 import BaseButton from "@/components/base/Button/BaseButton";
 import Link from "next/link";
+import { useVictionConnected } from "@/hooks/useVictionConnected";
+import { useMetamaskConnected } from "@/hooks/useMetamaskConnected";
 
 const Profile = () => {
   // variables //
@@ -39,15 +34,15 @@ const Profile = () => {
   const profile = useSelector(getProfileState);
   const nickname = useSelector(getNicknameState);
   const email = useSelector(getEmailState);
-  const [isClient, setIsClient] = useState(false);
   const isLoggedIn = useSelector(getIsLoggedInState);
   const dispatch = useDispatch();
   const userId = useSelector(getUserIDState);
-  const isConnected = useSelector(getIsConnectedState);
-  const { switchNetwork } = useSwitchNetwork();
-  const { chain: currentChain } = useNetwork();
-  const { address, isConnected: isconnected, isDisconnected } = useAccount();
   const pathname = usePathname();
+  const { isVictionConnected, victionConnect, victionDisconnect } =
+    useVictionConnected();
+
+  const { metamaskConnected, metamaskConnect, metamaskDisconnect } =
+    useMetamaskConnected();
 
   // API //
   const {
@@ -67,38 +62,11 @@ const Profile = () => {
     cacheTime: 60 * 60 * 1000,
   });
 
-  const {
-    data,
-    isError,
-    isLoading: load,
-  } = useBalance({
-    address: "0x7EE6fAD9Ee306551590E81799C49e576f6e57c8D",
-  });
-
-  if (data) {
-    console.log(data.formatted);
-  }
-
   // useEffect //
   useEffect(() => {
-    setIsClient(true);
     dispatch(INITIALIZE_FOOTER_BLUEBUTTON());
     dispatch(CLOSE_MODAL());
   }, []);
-
-  useEffect(() => {
-    if (isconnected && address) {
-      if (currentChain!.id !== 8217) {
-        switchNetwork?.(8217);
-      }
-      dispatch(SET_USER_CONNECT({ address: address }));
-    }
-    if (isDisconnected) [dispatch(SET_USER_DISCONNECT())];
-  }, [isconnected, isDisconnected, router]);
-
-  if (!isClient) {
-    return null;
-  }
 
   return (
     <Container>
@@ -175,20 +143,49 @@ const Profile = () => {
 
         <SectionName style={{ marginTop: "30px" }}>Wallet</SectionName>
         <Wallet
-          walletName="WalletConnect"
-          walletImgSrc="/asset/wallet_connect.svg"
+          walletName="Viction Wallet"
+          walletImgSrc="/asset/viction_logo.svg"
         >
-          <WalletConnectButtonWrapper>
-            <w3m-button
-              label="Connect"
-              size="md"
-              disabled={isLoggedIn ? false : true}
-              loadingLabel=""
-              balance="hide"
+          <DefaultWalletButtonWrapper>
+            <BaseButton
+              color={colors.white}
+              fontSize={12.4}
+              fontWeight={500}
+              borderRadius={21}
+              backgroundColor={
+                isVictionConnected ? colors.gray : colors.primary
+              }
+              padding="9px 16px"
+              title={isVictionConnected ? "Connected" : "Connect"}
+              onClickHandler={() => {
+                const method = isVictionConnected
+                  ? victionDisconnect
+                  : victionConnect;
+                method();
+              }}
             />
-          </WalletConnectButtonWrapper>
+          </DefaultWalletButtonWrapper>
         </Wallet>
-        <Wallet walletName="Kaikas" walletImgSrc="/asset/kaikas.jpeg">
+        <Wallet walletName="MetaMask" walletImgSrc="/asset/metamask_logo.svg">
+          <DefaultWalletButtonWrapper>
+            <BaseButton
+              color={colors.white}
+              fontSize={12.4}
+              fontWeight={500}
+              borderRadius={21}
+              backgroundColor={metamaskConnected ? colors.gray : colors.primary}
+              padding="9px 16px"
+              title={metamaskConnected ? "Connected" : "Connect"}
+              onClickHandler={() => {
+                const method = metamaskConnected
+                  ? metamaskDisconnect
+                  : metamaskConnect;
+                method();
+              }}
+            />
+          </DefaultWalletButtonWrapper>
+        </Wallet>
+        <Wallet walletName="Coin98" walletImgSrc="/asset/coin98_logo.svg">
           <DefaultWalletButtonWrapper>
             <Link href={`https://app.kaikas.io/u/v2.supersquad.store`}>
               <BaseButton
@@ -204,7 +201,6 @@ const Profile = () => {
             </Link>
           </DefaultWalletButtonWrapper>
         </Wallet>
-
         <a href="mailto:official@supersquad.xyz">
           <ContactTeam>Contact Team</ContactTeam>
         </a>

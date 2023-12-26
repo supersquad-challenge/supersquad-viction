@@ -9,6 +9,10 @@ body {
   min-width: 200px;
   overflow-x: hidden;
   position: relative;
+
+  ::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 a {

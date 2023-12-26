@@ -45,7 +45,6 @@ const Home = () => {
     const _handlelogin = async () => {
       const loginRes = await login();
       if (loginRes?.status !== 200) {
-        dispatch(SET_USER_LOGOUT());
         return;
       }
 
