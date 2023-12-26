@@ -42,6 +42,7 @@ Super Squad is a Web3-based challenge platform that allows users to participate 
 ## Deployment
 
 The project is deployed on Vercel.
+(https://viction.supersquad.store)
 
 ## Usage
 
