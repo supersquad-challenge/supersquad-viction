@@ -28,7 +28,8 @@
     "styled-components": "^6.1.0",
     "use-debounce": "^10.0.0",
     "viem": "^1.19.9",
-    "wagmi": "^1.4.7"
+    "wagmi": "^1.4.7",
+    "web3modal": "^1.9.12"
   },
   "devDependencies": {
     "@types/gtag.js": "^0.0.17",
