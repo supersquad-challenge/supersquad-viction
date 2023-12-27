@@ -1,28 +1,15 @@
 import Loading from "@/components/animation/Loading/Spinner/Loading";
 import BaseModal from "@/components/base/Modal/BaseModal";
 import BaseSlider from "@/components/base/Slider/BaseSlider";
-import setChallenge from "@/lib/api/axios/myChallenge/setChallenge";
-import setDepositInfo from "@/lib/api/axios/tx/setDepositInfo";
-import { USERID } from "@/lib/api/testdata";
 import { tokenTransfer } from "@/lib/web3/tranferToken";
 import { getAddressState, getUserIDState } from "@/redux/slice/authSlice";
 import { SET_FOOTER_BLUEBUTTON } from "@/redux/slice/layoutSlice";
-import {
-  CHANGE_MODAL,
-  CLOSE_MODAL,
-  IModalState,
-  OPEN_MODAL,
-  getModalState,
-} from "@/redux/slice/modalSlice";
 import colors from "@/styles/color";
 import { PaymentMethod } from "@/types/Modal";
-import { SingleRegisteredChallengeT } from "@/types/api/Challenge";
 import { ethers } from "ethers";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
-import { parseEther, parseUnits } from "viem";
-import { useSendTransaction } from "wagmi";
 
 type Props = {
   poolAddress: string;
@@ -48,7 +35,7 @@ const DepositChargeModal = ({
     currency = "$USD";
   }
   const userId = useSelector(getUserIDState);
-  const userAddress = useSelector(getAddressState);
+  const userAddress = localStorage.getItem("supersquad_address");
   let challengeRes: any;
 
   // handle functions //

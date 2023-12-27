@@ -47,6 +47,7 @@ export const useVictionConnected = () => {
       setIsConnected(true);
       setAddress(authInfo[0]);
       localStorage.setItem("supersquad_viction", "true");
+      localStorage.setItem("supersquad_address", authInfo[0]);
     } else {
       const newAuthInfo = await window.viction.request({
         method: "eth_requestAccounts",
@@ -60,6 +61,7 @@ export const useVictionConnected = () => {
         setIsConnected(true);
         setAddress(newAuthInfo[0]);
         localStorage.setItem("supersquad_viction", "true");
+        localStorage.setItem("supersquad_address", newAuthInfo[0]);
       }
     }
   };
@@ -72,6 +74,7 @@ export const useVictionConnected = () => {
       setAddress(undefined);
       setIsConnected(false);
       localStorage.removeItem("supersquad_viction");
+      localStorage.removeItem("supersquad_address");
     }
   };
 

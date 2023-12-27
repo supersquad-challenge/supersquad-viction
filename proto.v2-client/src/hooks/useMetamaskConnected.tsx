@@ -55,6 +55,7 @@ export const useMetamaskConnected = () => {
         setIsConnected(true);
         setAddress(accounts[0].address);
         localStorage.setItem("supersquad_metamask", "true");
+        localStorage.setItem("supersquad_address", accounts[0].address);
       }
     }
   };
@@ -66,6 +67,7 @@ export const useMetamaskConnected = () => {
     setAddress(undefined);
     setIsConnected(false);
     localStorage.removeItem("supersquad_metamask");
+    localStorage.removeItem("supersquad_address");
   };
 
   return {

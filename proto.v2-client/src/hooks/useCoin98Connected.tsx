@@ -38,6 +38,7 @@ export const useCoin98Connected = () => {
       setIsConnected(true);
       setAddress(authInfo[0]);
       localStorage.setItem("supersquad_coin98", "true");
+      localStorage.setItem("supersquad_address", authInfo[0]);
     } else {
       const newAuthInfo = await window.ethereum.request({
         method: "eth_requestAccounts",
@@ -51,6 +52,7 @@ export const useCoin98Connected = () => {
         setIsConnected(true);
         setAddress(newAuthInfo[0]);
         localStorage.setItem("supersquad_coin98", "true");
+        localStorage.setItem("supersquad_address", newAuthInfo[0]);
       }
     }
   };
@@ -63,6 +65,7 @@ export const useCoin98Connected = () => {
       setAddress(undefined);
       setIsConnected(false);
       localStorage.removeItem("supersquad_coin98");
+      localStorage.removeItem("supersquad_address");
     }
   };
 
