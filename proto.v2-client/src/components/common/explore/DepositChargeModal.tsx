@@ -56,16 +56,6 @@ const DepositChargeModal = ({
     else setDeposit(parseInt(e.target.value));
   };
 
-  // send Transaction Logic
-  const { data, isLoading, isSuccess, sendTransactionAsync, status } =
-    useSendTransaction({
-      chainId: 89,
-      to: poolAddress,
-      value: parseEther(deposit.toString()),
-    });
-
-  console.log("deposit charge", data);
-
   // useEffect //
   useEffect(() => {
     dispatch(
@@ -81,12 +71,6 @@ const DepositChargeModal = ({
           });
 
           console.log("challengeRes", challengeRes);
-
-          try {
-            await sendTransactionAsync?.();
-          } catch (e) {
-            console.log(e);
-          }
         },
       })
     );
@@ -94,21 +78,10 @@ const DepositChargeModal = ({
 
   useEffect(() => {
     async function updateDepositInfo() {
-      if (status === "success") {
-        const depositRes = await setDepositInfo({
-          userChallengeId: challengeRes?.data.userChallengeId!,
-          depositMethod: paymentMethod,
-          deposit: deposit,
-        });
-        console.log("depositRes", depositRes);
-        dispatch(OPEN_MODAL({ modal: "nowYouAreIn" }));
-      } else {
-        console.log("failed");
-      }
+      dispatch(OPEN_MODAL({ modal: "nowYouAreIn" }));
     }
-
     updateDepositInfo();
-  }, [status]);
+  }, []);
 
   return (
     <BaseModal title="Win your goal" deletePath={undefined} show={true}>
@@ -158,7 +131,6 @@ const DepositChargeModal = ({
         </OrangeUnderline>{" "}
         / 1 Week in average
       </AverageDeposit>
-      {isLoading && <Loading />}
     </BaseModal>
   );
 };
