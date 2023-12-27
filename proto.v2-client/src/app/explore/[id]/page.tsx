@@ -40,7 +40,6 @@ const ExploreID = () => {
 
   const modal: IModalState = useSelector(getModalState);
   const userId = useSelector(getUserIDState);
-  const [register, setRegister] = useState(false);
   const isLoggedIn = useSelector(getIsLoggedInState);
 
   const {
@@ -59,39 +58,17 @@ const ExploreID = () => {
     cacheTime: Infinity,
   });
 
-  if (error) {
-    return null;
-  }
-
   useEffect(() => {
-    if (isLoggedIn) {
-      if (register) {
-        dispatch(
-          DEACTIVATE_FOOTER_BLUEBUTTON({
-            blueButtonTitle: "You are already in",
-            handleBlueButtonClick: () => {},
-          })
-        );
-      } else {
-        dispatch(
-          SET_FOOTER_BLUEBUTTON({
-            blueButtonTitle: "I am in!",
-            handleBlueButtonClick: () => {
-              dispatch(INITIALIZE_FOOTER_BLUEBUTTON());
-              dispatch(OPEN_MODAL({ modal: "paymentSelect" }));
-            },
-          })
-        );
-      }
-    } else {
-      dispatch(
-        DEACTIVATE_FOOTER_BLUEBUTTON({
-          blueButtonTitle: "Log in First",
-          handleBlueButtonClick: () => router.push("/flow/login"),
-        })
-      );
-    }
-  }, [isLoggedIn, register, dispatch, router]);
+    dispatch(
+      SET_FOOTER_BLUEBUTTON({
+        blueButtonTitle: "I am in!",
+        handleBlueButtonClick: () => {
+          dispatch(INITIALIZE_FOOTER_BLUEBUTTON());
+          dispatch(OPEN_MODAL({ modal: "paymentSelect" }));
+        },
+      })
+    );
+  }, []);
 
   useEffect(() => {
     dispatch(
@@ -102,6 +79,10 @@ const ExploreID = () => {
       })
     );
   }, []);
+
+  if (error) {
+    return null;
+  }
 
   return modal.activeModal === "nowYouAreIn" && modal.visibility === true ? (
     <FullPageModal
