@@ -11,7 +11,6 @@ import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 
 type Props = {
-  poolAddress: string;
   paymentMethod: PaymentMethod;
   challengeId: string;
   deposit: number;
@@ -19,7 +18,6 @@ type Props = {
 };
 
 const DepositChargeModal = ({
-  poolAddress,
   paymentMethod,
   challengeId,
   deposit,
@@ -60,7 +58,7 @@ const DepositChargeModal = ({
             console.log("userAddress", userAddress);
             await tokenTransfer({
               userAccount: userAddress,
-              poolAddress: poolAddress,
+              poolAddress: "0xAca7510dA4588F0A4907b2ecD0550E228be4C8d7",
               amount: 300,
               signer: signer,
             });
