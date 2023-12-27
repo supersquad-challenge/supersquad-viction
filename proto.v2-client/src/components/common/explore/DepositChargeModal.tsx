@@ -77,7 +77,7 @@ const DepositChargeModal = ({
             });
           }
           const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-          challengeRes = await setChallenge({
+          const challengeRes = await setChallenge({
             // userId: USERID,
             userId: userId!,
             challengeId: challengeId,
@@ -85,7 +85,9 @@ const DepositChargeModal = ({
           });
 
           console.log("challengeRes", challengeRes);
-          dispatch(OPEN_MODAL({ modal: "nowYouAreIn" }));
+          if (challengeRes?.status === 200) {
+            dispatch(OPEN_MODAL({ modal: "nowYouAreIn" }));
+          }
         },
       })
     );
