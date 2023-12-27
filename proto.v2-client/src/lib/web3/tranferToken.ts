@@ -20,10 +20,16 @@ export const tokenTransfer = async ({
     signer
   );
 
+  console.log("userAccount", userAccount);
+  console.log("poolAddress", poolAddress);
+  console.log("amount", amount);
+  console.log("signer", signer);
   const _amount = ethers.formatEther(amount);
 
   const transaction = await contract.transfer(poolAddress, _amount);
+  console.log("transaction", transaction);
   const receipt = await transaction.wait();
+  console.log("receipt", receipt);
   return {
     transaction,
     receipt,

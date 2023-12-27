@@ -70,6 +70,8 @@ const DepositChargeModal = ({
           const signer = await provider.getSigner();
           console.log("signer", signer);
 
+          console.log("userAddress", userAddress);
+
           if (userAddress) {
             await tokenTransfer({
               userAccount: userAddress,
