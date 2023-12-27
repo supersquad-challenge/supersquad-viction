@@ -109,7 +109,6 @@ const ExploreID = () => {
         modal.visibility === true &&
         challenge && (
           <DepositChargeModal
-            poolAddress={challenge.successPoolAddress}
             paymentMethod={paymentMethod}
             challengeId={id}
             deposit={deposit}
