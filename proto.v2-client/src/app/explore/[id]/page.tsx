@@ -45,29 +45,6 @@ const ExploreID = () => {
   const [register, setRegister] = useState(false);
   const isLoggedIn = useSelector(getIsLoggedInState);
 
-  // API //
-  const {
-    data: isRegistered,
-    error: isRegisteredError,
-    isLoading: isRegisteredLoading,
-  } = useQuery({
-    queryKey: [`isRegistered-${challengeId} - ${userId}`],
-    queryFn: async () => {
-      const res = await getIsChallengeRegistered({
-        challengeId: challengeId,
-        userId: userId!,
-      });
-      if (res.userChallengeInfo.userChallengeId !== undefined) {
-        setRegister(true);
-      } else {
-        setRegister(false);
-      }
-      return res.userChallengeInfo.userChallengeId != undefined;
-    },
-    staleTime: 5000,
-    cacheTime: 60 * 60 * 1000,
-  });
-
   const {
     data: challenge,
     error,
@@ -82,11 +59,6 @@ const ExploreID = () => {
     staleTime: 5000,
     cacheTime: 60 * 60 * 1000,
   });
-
-  // useEffect //
-  useEffect(() => {
-    setRegister(isRegistered!);
-  }, [isRegistered]);
 
   useEffect(() => {
     if (isLoggedIn) {
@@ -181,7 +153,6 @@ const ExploreID = () => {
           detail={challenge?.description!}
         />
       </DetailedChallengePage>
-      {(isLoading || isRegisteredLoading) && <Loading />}
     </Container>
   );
 };
