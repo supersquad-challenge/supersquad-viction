@@ -9,10 +9,6 @@ import dotenv from "dotenv";
 dotenv.config();
 
 // 1. Get PROJECT_ID
-const projectId = process.env.NEXT_PUBLIC_WALLET_CONNECT_PROJECT_ID || "";
-
-const alchemyKey = process.env.NEXT_PUBLIC_ALCHEMY_KEY || "";
-
 const metadata = {
   name: "SuperSquad v2",
   description: "supersqaud challenge",
