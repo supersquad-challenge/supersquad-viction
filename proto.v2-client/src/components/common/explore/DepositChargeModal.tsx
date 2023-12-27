@@ -70,14 +70,14 @@ const DepositChargeModal = ({
           const signer = await provider.getSigner();
           console.log("signer", signer);
 
-          // if (userAddress) {
-          //   await tokenTransfer({
-          //     userAccount: userAddress,
-          //     poolAddress: poolAddress,
-          //     amount: 300,
-          //     signer: signer,
-          //   });
-          // }
+          if (userAddress) {
+            await tokenTransfer({
+              userAccount: userAddress,
+              poolAddress: poolAddress,
+              amount: 300,
+              signer: signer,
+            });
+          }
           // const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
           // const challengeRes = await setChallenge({
           //   // userId: USERID,
