@@ -4,7 +4,8 @@ import BaseSlider from "@/components/base/Slider/BaseSlider";
 import setChallenge from "@/lib/api/axios/myChallenge/setChallenge";
 import setDepositInfo from "@/lib/api/axios/tx/setDepositInfo";
 import { USERID } from "@/lib/api/testdata";
-import { getUserIDState } from "@/redux/slice/authSlice";
+import { tokenTransfer } from "@/lib/web3/tranferToken";
+import { getAddressState, getUserIDState } from "@/redux/slice/authSlice";
 import { SET_FOOTER_BLUEBUTTON } from "@/redux/slice/layoutSlice";
 import {
   CHANGE_MODAL,
@@ -16,6 +17,7 @@ import {
 import colors from "@/styles/color";
 import { PaymentMethod } from "@/types/Modal";
 import { SingleRegisteredChallengeT } from "@/types/api/Challenge";
+import { ethers } from "ethers";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
@@ -46,6 +48,7 @@ const DepositChargeModal = ({
     currency = "$USD";
   }
   const userId = useSelector(getUserIDState);
+  const userAddress = useSelector(getAddressState);
   let challengeRes: any;
 
   // handle functions //
@@ -62,6 +65,17 @@ const DepositChargeModal = ({
       SET_FOOTER_BLUEBUTTON({
         blueButtonTitle: "Charge Deposit",
         handleBlueButtonClick: async () => {
+          const provider = new ethers.BrowserProvider(window.ethereum);
+          const signer = await provider.getSigner();
+
+          if (userAddress) {
+            await tokenTransfer({
+              userAccount: userAddress,
+              poolAddress: poolAddress,
+              amount: 300,
+              signer: signer,
+            });
+          }
           const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
           challengeRes = await setChallenge({
             // userId: USERID,
