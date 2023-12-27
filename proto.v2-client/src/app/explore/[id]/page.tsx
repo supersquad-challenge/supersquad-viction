@@ -51,6 +51,7 @@ const ExploreID = () => {
     queryKey: [`singleChallenge-${challengeId}`],
     queryFn: async () => {
       const res = await getSingleChallenge({ challengeId: challengeId });
+      console.log("res", res);
       const challenge = res.challengeInfo;
       return challenge;
     },

@@ -20,11 +20,7 @@ import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { parseEther, parseUnits } from "viem";
-import {
-  usePrepareSendTransaction,
-  useSendTransaction,
-  useWaitForTransaction,
-} from "wagmi";
+import { useSendTransaction } from "wagmi";
 
 type Props = {
   poolAddress: string;
@@ -68,6 +64,8 @@ const DepositChargeModal = ({
       value: parseEther(deposit.toString()),
     });
 
+  console.log("deposit charge", data);
+
   // useEffect //
   useEffect(() => {
     dispatch(
@@ -81,6 +79,8 @@ const DepositChargeModal = ({
             challengeId: challengeId,
             timezone: timezone,
           });
+
+          console.log("challengeRes", challengeRes);
 
           try {
             await sendTransactionAsync?.();
@@ -100,6 +100,7 @@ const DepositChargeModal = ({
           depositMethod: paymentMethod,
           deposit: deposit,
         });
+        console.log("depositRes", depositRes);
         dispatch(OPEN_MODAL({ modal: "nowYouAreIn" }));
       } else {
         console.log("failed");
