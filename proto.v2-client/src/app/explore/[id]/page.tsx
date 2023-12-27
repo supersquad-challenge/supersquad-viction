@@ -27,9 +27,7 @@ import DepositChargeModal from "@/components/common/explore/DepositChargeModal";
 import { PaymentMethod } from "@/types/Modal";
 import FullPageModal from "@/components/base/Modal/FullPageModal";
 import { nowYouAreInSrc } from "@/lib/components/fullPageModal";
-import { getIsChallengeRegistered } from "@/lib/api/querys/myChallenge/getIsChallengeRegistered";
 import { getIsLoggedInState, getUserIDState } from "@/redux/slice/authSlice";
-import Loading from "@/components/animation/Loading/Spinner/Loading";
 
 const ExploreID = () => {
   // variables //
@@ -57,8 +55,12 @@ const ExploreID = () => {
       return challenge;
     },
     staleTime: 5000,
-    cacheTime: 60 * 60 * 1000,
+    cacheTime: Infinity,
   });
+
+  if (error) {
+    return null;
+  }
 
   useEffect(() => {
     if (isLoggedIn) {
@@ -121,14 +123,17 @@ const ExploreID = () => {
         />
       )}
 
-      {modal.activeModal === "depositCharge" && modal.visibility === true && (
-        <DepositChargeModal
-          paymentMethod={paymentMethod}
-          challengeId={challengeId}
-          deposit={deposit}
-          setDeposit={setDeposit}
-        />
-      )}
+      {modal.activeModal === "depositCharge" &&
+        modal.visibility === true &&
+        challenge && (
+          <DepositChargeModal
+            poolAddress={challenge.successPoolAddress}
+            paymentMethod={paymentMethod}
+            challengeId={id}
+            deposit={deposit}
+            setDeposit={setDeposit}
+          />
+        )}
 
       <DetailedChallengePage
         thumbnailUrl={challenge?.thumbnailUrl!}

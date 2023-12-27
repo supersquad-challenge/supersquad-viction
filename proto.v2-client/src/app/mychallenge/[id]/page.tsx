@@ -55,7 +55,7 @@ const MyChallengeID = () => {
       });
       const challenge = res.myStatus;
       if (challenge.depositMethod === "crypto") {
-        currency = "KLAY";
+        currency = "SQT";
       } else if (challenge.depositMethod === "cash") {
         currency = "$USD";
       }

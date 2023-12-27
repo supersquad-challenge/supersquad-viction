@@ -27,6 +27,7 @@ import {
 } from "wagmi";
 
 type Props = {
+  poolAddress: string;
   paymentMethod: PaymentMethod;
   challengeId: string;
   deposit: number;
@@ -34,6 +35,7 @@ type Props = {
 };
 
 const DepositChargeModal = ({
+  poolAddress,
   paymentMethod,
   challengeId,
   deposit,
@@ -43,7 +45,7 @@ const DepositChargeModal = ({
   const dispatch = useDispatch();
   let currency;
   if (paymentMethod === "crypto") {
-    currency = "KLAY";
+    currency = "SQT";
   } else if (paymentMethod === "cash") {
     currency = "$USD";
   }
@@ -59,11 +61,10 @@ const DepositChargeModal = ({
   };
 
   // send Transaction Logic
-  const to = "0xBDced5A4b13A1FD6A9e40E8938B4b333373Aa9A3";
   const { data, isLoading, isSuccess, sendTransactionAsync, status } =
     useSendTransaction({
-      chainId: 8217,
-      to: to,
+      chainId: 89,
+      to: poolAddress,
       value: parseEther(deposit.toString()),
     });
 
@@ -149,7 +150,7 @@ const DepositChargeModal = ({
         <OrangeUnderline>
           {" "}
           {paymentMethod === "crypto"
-            ? "50 KLAY"
+            ? "50 SQT"
             : paymentMethod === "cash"
             ? "25 $USD"
             : ""}

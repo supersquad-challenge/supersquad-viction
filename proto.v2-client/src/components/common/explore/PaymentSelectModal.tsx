@@ -59,7 +59,7 @@ const PaymentSelectModal = ({ paymentMethod, setPaymentMethod }: Props) => {
           <PaymentMethod $isclicked={paymentMethod === "crypto"}>
             a crypto wallet
           </PaymentMethod>
-          <Detail>Deposit KLAY to enforce your goals</Detail>
+          <Detail>Deposit SQT to enforce your goals</Detail>
         </BaseBlock>
       </PaymentBlockWrapper>
 

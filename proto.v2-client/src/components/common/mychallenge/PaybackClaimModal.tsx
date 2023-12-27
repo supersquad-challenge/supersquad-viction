@@ -42,7 +42,7 @@ const PaybackClaimModal = ({ successRate }: Props) => {
       });
       const paybackStatus = res.paybackInfo;
       if (paybackStatus?.depositMethod === "crypto") {
-        setCurrency("KLAY");
+        setCurrency("SQT");
       } else if (paybackStatus?.depositMethod === "cash") {
         setCurrency("$USD");
       }
