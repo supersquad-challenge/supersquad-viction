@@ -66,28 +66,30 @@ const DepositChargeModal = ({
         blueButtonTitle: "Charge Deposit",
         handleBlueButtonClick: async () => {
           const provider = new ethers.BrowserProvider(window.ethereum);
+          console.log("provider", provider);
           const signer = await provider.getSigner();
+          console.log("signer", signer);
 
-          if (userAddress) {
-            await tokenTransfer({
-              userAccount: userAddress,
-              poolAddress: poolAddress,
-              amount: 300,
-              signer: signer,
-            });
-          }
-          const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-          const challengeRes = await setChallenge({
-            // userId: USERID,
-            userId: userId!,
-            challengeId: challengeId,
-            timezone: timezone,
-          });
+          // if (userAddress) {
+          //   await tokenTransfer({
+          //     userAccount: userAddress,
+          //     poolAddress: poolAddress,
+          //     amount: 300,
+          //     signer: signer,
+          //   });
+          // }
+          // const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+          // const challengeRes = await setChallenge({
+          //   // userId: USERID,
+          //   userId: userId!,
+          //   challengeId: challengeId,
+          //   timezone: timezone,
+          // });
 
-          console.log("challengeRes", challengeRes);
-          if (challengeRes?.status === 200) {
-            dispatch(OPEN_MODAL({ modal: "nowYouAreIn" }));
-          }
+          // console.log("challengeRes", challengeRes);
+          // if (challengeRes?.status === 200) {
+          //   dispatch(OPEN_MODAL({ modal: "nowYouAreIn" }));
+          // }
         },
       })
     );
