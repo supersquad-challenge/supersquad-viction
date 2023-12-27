@@ -16,7 +16,7 @@ export const tokenTransfer = async ({
 }: ITokenTransfer) => {
   const contract = new ethers.Contract(
     userAccount,
-    JSON.stringify(TokenContractABI),
+    JSON.stringify(TokenContractABI.abi),
     signer
   );
 

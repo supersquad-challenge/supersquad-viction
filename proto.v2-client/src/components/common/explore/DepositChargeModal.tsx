@@ -1,4 +1,3 @@
-import Loading from "@/components/animation/Loading/Spinner/Loading";
 import BaseModal from "@/components/base/Modal/BaseModal";
 import BaseSlider from "@/components/base/Slider/BaseSlider";
 import { tokenTransfer } from "@/lib/web3/tranferToken";
@@ -57,9 +56,8 @@ const DepositChargeModal = ({
           const signer = await provider.getSigner();
           console.log("signer", signer);
 
-          console.log("userAddress", userAddress);
-
           if (userAddress) {
+            console.log("userAddress", userAddress);
             await tokenTransfer({
               userAccount: userAddress,
               poolAddress: poolAddress,
