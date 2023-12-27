@@ -25,7 +25,10 @@ export const tokenTransfer = async ({
   console.log("amount", amount);
   console.log("signer", signer);
 
-  const transaction = await contract.transfer(poolAddress, amount);
+  const transaction = await contract.transfer(
+    poolAddress,
+    ethers.parseEther(amount.toString())
+  );
   console.log("transaction", transaction);
   const receipt = await transaction.wait();
   console.log("receipt", receipt);
