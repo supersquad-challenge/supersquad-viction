@@ -71,16 +71,10 @@ const DepositChargeModal = ({
           });
 
           console.log("challengeRes", challengeRes);
+          dispatch(OPEN_MODAL({ modal: "nowYouAreIn" }));
         },
       })
     );
-  }, []);
-
-  useEffect(() => {
-    async function updateDepositInfo() {
-      dispatch(OPEN_MODAL({ modal: "nowYouAreIn" }));
-    }
-    updateDepositInfo();
   }, []);
 
   return (
