@@ -52,6 +52,7 @@ const ExploreID = () => {
       const res = await getSingleChallenge({ challengeId: challengeId });
       console.log("res", res);
       const challenge = res.challengeInfo;
+      console.log("challenge", challenge);
       return challenge;
     },
     staleTime: 5000,
