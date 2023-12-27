@@ -1,8 +1,10 @@
 import BaseModal from "@/components/base/Modal/BaseModal";
 import BaseSlider from "@/components/base/Slider/BaseSlider";
+import setChallenge from "@/lib/api/axios/myChallenge/setChallenge";
 import { tokenTransfer } from "@/lib/web3/tranferToken";
 import { getAddressState, getUserIDState } from "@/redux/slice/authSlice";
 import { SET_FOOTER_BLUEBUTTON } from "@/redux/slice/layoutSlice";
+import { OPEN_MODAL } from "@/redux/slice/modalSlice";
 import colors from "@/styles/color";
 import { PaymentMethod } from "@/types/Modal";
 import { ethers } from "ethers";
@@ -63,18 +65,18 @@ const DepositChargeModal = ({
               signer: signer,
             });
           }
-          // const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-          // const challengeRes = await setChallenge({
-          //   // userId: USERID,
-          //   userId: userId!,
-          //   challengeId: challengeId,
-          //   timezone: timezone,
-          // });
+          const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+          const challengeRes = await setChallenge({
+            // userId: USERID,
+            userId: userId!,
+            challengeId: challengeId,
+            timezone: timezone,
+          });
 
-          // console.log("challengeRes", challengeRes);
-          // if (challengeRes?.status === 200) {
-          //   dispatch(OPEN_MODAL({ modal: "nowYouAreIn" }));
-          // }
+          console.log("challengeRes", challengeRes);
+          if (challengeRes?.status === 200) {
+            dispatch(OPEN_MODAL({ modal: "nowYouAreIn" }));
+          }
         },
       })
     );
